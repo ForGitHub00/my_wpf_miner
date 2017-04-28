@@ -78,6 +78,7 @@
     <Compile Include="CellControl.xaml.cs">
       <DependentUpon>CellControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Game\Settings.cs" />
     <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="Interfaces\ICellCollection.cs" />
     <Compile Include="Interfaces\IGame.cs" />

@@ -1,4 +1,5 @@
-﻿using my_wpf_miner.Interfaces;
+﻿using my_wpf_miner.BaseClasses;
+using my_wpf_miner.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace my_wpf_miner {
-    public abstract class BoardPanelBase : Panel {
+    public class BoardPanelBase : Panel {
         public BoardPanelBase() {
 
         }
@@ -31,9 +32,34 @@ namespace my_wpf_miner {
         public void redraw() {
             Children.Clear();
             foreach (var item in Data.Cells) {
-                Children.Add(item);
+                CellControl temp = new CellControl();
+                temp.Value = item.Value;
+                Children.Add(temp);
             }
         }
+
+        public void redraw2() {
+            Children.Clear();
+
+            CellControl temp = new CellControl();
+            temp.Value = Cell.Value;
+            Children.Add(temp);
+
+        }
+
+        public ICell Cell {
+            get { return (ICell)GetValue(CellProperty); }
+            set {
+                SetValue(CellProperty, value);
+                redraw2();
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for Cell.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CellProperty =
+            DependencyProperty.Register("Cell", typeof(ICell), typeof(BoardPanelBase), new PropertyMetadata(null));
+
+
 
         public int Rows {
             get { return (int)GetValue(RowsProperty); }
@@ -54,7 +80,10 @@ namespace my_wpf_miner {
 
 
 
-        public  ICellCollection<ICell> Data {
+
+
+
+        public ICellCollection<ICell> Data {
             get { return (ICellCollection<ICell>)GetValue(DataProperty); }
             set {
                 SetValue(DataProperty, value);

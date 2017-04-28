@@ -6,10 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace my_wpf_miner.BaseClasses {
-    public class GameBase : IGame {
+    public class GameBase<T> : IGame where T : ICellCollection<ICell> {
+        public GameBase() {
+            Random rnd = new Random();
+            Rows = rnd.Next(5, 20);
+            Columns = rnd.Next(5, 20);
+            Bombs = (Rows * Columns) / 5;
+        }
         public int Rows { get; set; }
         public int Columns { get; set; }
         public int Bombs { get; set; }
+
+        private T cells;
+        public T Cells {
+            get { return cells; }
+            set { cells = value; }
+        }
+
 
         public void Close() {
             throw new NotImplementedException();
@@ -28,7 +41,7 @@ namespace my_wpf_miner.BaseClasses {
         }
 
         public void Start() {
-            throw new NotImplementedException();
+            cells.Generate(Rows, Columns, Bombs);
         }
     }
 }

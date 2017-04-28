@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:my_wpf_miner"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="300">
-    <Grid Name="grid">
+    <local:BoardPanelBase x:Name="Board">
         
-    </Grid>
+    </local:BoardPanelBase>
 </Window>
